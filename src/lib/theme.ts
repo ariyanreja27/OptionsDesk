@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const THEME_KEY = "optiondesk:theme";
+export const THEME_KEY = "optionstats:theme";
 export type Theme = "light" | "dark";
 
 export function applyTheme(t: Theme) {

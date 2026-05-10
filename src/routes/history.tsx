@@ -43,7 +43,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/history")({
   head: () => ({
     meta: [
-      { title: "Trade History — OptionDesk" },
+      { title: "Trade History — OptionStats" },
       { name: "description", content: "Browse and search your saved strategy backtests." },
     ],
   }),

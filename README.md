@@ -1,4 +1,4 @@
-# OptionDesk
+# OptionStats
 
 A local-first options trading strategy journal and analytics dashboard.
 

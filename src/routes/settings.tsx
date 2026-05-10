@@ -33,8 +33,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — OptionDesk" },
-      { name: "description", content: "Manage your OptionDesk preferences." },
+      { title: "Settings — OptionStats" },
+      { name: "description", content: "Manage your OptionStats preferences." },
     ],
   }),
   component: SettingsPage,
@@ -92,7 +92,7 @@ function SettingsPage() {
       exportTemplates ? `${templates.length}-templates` : null,
     ].filter(Boolean);
     a.href = url;
-    a.download = `optiondesk-${parts.join("-")}-${Date.now()}.json`;
+    a.download = `optionstats-${parts.join("-")}-${Date.now()}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast.success("Export downloaded");

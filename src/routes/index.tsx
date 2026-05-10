@@ -50,7 +50,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dashboard — OptionDesk" },
+      { title: "Dashboard — OptionStats" },
       {
         name: "description",
         content: "Analytics overview of your options trading strategy backtests.",
@@ -979,7 +979,7 @@ function EmptyState() {
         <div className="relative p-8 md:p-12">
           <div className="flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur">
-              <Sparkles className="h-3 w-3 text-primary" /> OptionDesk Journal
+              <Sparkles className="h-3 w-3 text-primary" /> OptionStats Journal
             </div>
             <div className="mt-6 h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-chart-5 flex items-center justify-center shadow-lg shadow-primary/30">
               <TrendingUp className="h-8 w-8 text-primary-foreground" />

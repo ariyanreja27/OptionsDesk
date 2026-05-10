@@ -52,7 +52,7 @@ export const Route = createFileRoute("/new")({
   }),
   head: () => ({
     meta: [
-      { title: "New / Edit Strategy — OptionDesk" },
+      { title: "New / Edit Strategy — OptionStats" },
       {
         name: "description",
         content: "Record a new options trading strategy simulation with multi-leg detail.",
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/new")({
   component: NewEntry,
 });
 
-const MEM_KEY = "optiondesk:lastUsed:v2";
+const MEM_KEY = "optionstats:lastUsed:v2";
 type Memory = {
   instrument?: Instrument;
   template?: string;

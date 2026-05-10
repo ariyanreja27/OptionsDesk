@@ -14,7 +14,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/data")({
   head: () => ({
     meta: [
-      { title: "Import / Export — OptionDesk" },
+      { title: "Import / Export — OptionStats" },
       { name: "description", content: "Backup or restore your local trading journal data." },
     ],
   }),
@@ -118,7 +118,7 @@ function DataPage() {
     }
 
     downloadFile(
-      `optiondesk-${Date.now()}.json`,
+      `optionstats-${Date.now()}.json`,
       JSON.stringify(payload, null, 2),
       "application/json",
     );
@@ -126,7 +126,7 @@ function DataPage() {
     setExportOpen(false);
   };
   const exportCSV = () => {
-    downloadFile(`optiondesk-${Date.now()}.csv`, strategiesToCSV(strategies), "text/csv");
+    downloadFile(`optionstats-${Date.now()}.csv`, strategiesToCSV(strategies), "text/csv");
     toast.success("CSV exported");
   };
 
@@ -137,7 +137,7 @@ function DataPage() {
       const data = JSON.parse(text);
       const list: unknown = Array.isArray(data) ? data : data?.strategies;
       if (!Array.isArray(list)) throw new Error("Invalid format");
-      const { validateStrategy } = await import("@/lib/validation");
+      const { validateStrategy, validateTemplate } = await import("@/lib/validation");
       const valid: Strategy[] = [];
       let invalid = 0;
       for (const item of list) {

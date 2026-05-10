@@ -39,7 +39,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/trade/$id")({
   head: ({ params }) => ({
     meta: [
-      { title: `Trade ${params.id} — OptionDesk` },
+      { title: `Trade ${params.id} — OptionStats` },
       { name: "description", content: "Detailed view of a saved options trading strategy." },
     ],
   }),

@@ -34,7 +34,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/templates")({
   head: () => ({
     meta: [
-      { title: "Templates — OptionDesk" },
+      { title: "Templates — OptionStats" },
       {
         name: "description",
         content: "Save and manage reusable strategy templates.",

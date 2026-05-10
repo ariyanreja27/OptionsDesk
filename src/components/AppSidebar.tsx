@@ -54,21 +54,19 @@ export function AppSidebar() {
         <Link
           to="/"
           className={cn("flex items-center gap-2 py-3", collapsed ? "px-0 justify-center" : "px-2")}
-          title="OptionDesk"
+          title="OptionStats"
         >
           <div
             className={cn(
-              "flex items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-5 shadow-lg shadow-primary/30 shrink-0",
+              "flex items-center justify-center shrink-0 overflow-hidden",
               collapsed ? "h-8 w-8" : "h-9 w-9",
             )}
           >
-            <TrendingUp
-              className={cn(collapsed ? "h-4 w-4" : "h-5 w-5", "text-primary-foreground")}
-            />
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
           </div>
           {!collapsed && (
             <div className="leading-tight">
-              <div className="text-sm font-semibold tracking-tight">OptionDesk</div>
+              <div className="text-sm font-semibold tracking-tight">OptionStats</div>
               <div className="text-[10px] text-muted-foreground uppercase tracking-widest">
                 Trading Journal
               </div>

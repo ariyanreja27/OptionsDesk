@@ -12,7 +12,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem('optiondesk:theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.classList.add(t);}catch(e){document.documentElement.classList.add('dark');}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem('optionstats:theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.classList.add(t);}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 import appCss from "../styles.css?url";
 
@@ -59,7 +59,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OptionDesk — Indian Options Trading Journal" },
+      { title: "OptionStats — Indian Options Trading Journal" },
       {
         name: "description",
         content: "Local-first journal & analytics for Indian options strategy backtests.",
@@ -73,6 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
       },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -107,7 +108,7 @@ function RootComponent() {
             <header className="h-14 flex items-center border-b border-border/60 backdrop-blur sticky top-0 z-30 bg-background/70">
               <SidebarTrigger className="ml-2 md:hidden" />
               <div className="ml-3 text-sm font-medium text-muted-foreground">
-                OptionDesk · Strategy Simulator
+                OptionStats · Strategy Simulator
               </div>
               <div className="ml-auto mr-3">
                 <ThemeToggle />
