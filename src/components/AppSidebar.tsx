@@ -58,7 +58,7 @@ export function AppSidebar() {
         >
           <div
             className={cn(
-              "flex items-center justify-center shrink-0 overflow-hidden",
+              "flex items-center justify-center shrink-0 overflow-hidden rounded-full",
               collapsed ? "h-8 w-8" : "h-9 w-9",
             )}
           >
