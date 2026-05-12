@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import {
@@ -78,6 +78,22 @@ function Dashboard() {
   const [stype, setStype] = useState("all");
   const [outcome, setOutcome] = useState("all");
   const [equityMode, setEquityMode] = useState<"line" | "bar">("line");
+
+  const bounds = useMemo(() => {
+    if (strategies.length === 0) return { min: "", max: "" };
+    const dates = strategies.map((s) => s.tradeDate).sort();
+    return { min: dates[0], max: dates[dates.length - 1] };
+  }, [strategies]);
+
+  const [lastBounds, setLastBounds] = useState({ min: "", max: "" });
+
+  useEffect(() => {
+    if (bounds.min !== lastBounds.min || bounds.max !== lastBounds.max) {
+      if (!from || from === lastBounds.min) setFrom(bounds.min);
+      if (!to || to === lastBounds.max) setTo(bounds.max);
+      setLastBounds(bounds);
+    }
+  }, [bounds, from, to, lastBounds]);
 
   const strategyOptions = useMemo(() => {
     const set = new Set<string>();
@@ -210,24 +226,33 @@ function Dashboard() {
     const dayMap = new Map<string, number>();
     for (const s of filtered)
       dayMap.set(s.tradeDate, (dayMap.get(s.tradeDate) ?? 0) + strategyPnL(s));
-    const today = new Date();
+
+    const startISO = from || bounds.min || new Date().toISOString().split("T")[0];
+    const endISO = to || bounds.max || new Date().toISOString().split("T")[0];
+
+    const start = new Date(startISO + "T00:00:00");
+    const end = new Date(endISO + "T00:00:00");
+
+    // Full month display logic: start from the 1st of the starting month
+    const cur = new Date(start.getFullYear(), start.getMonth(), 1);
+    // End at the 1st of the ending month (inclusive in the while loop)
+    const limit = new Date(end.getFullYear(), end.getMonth(), 1);
+
     const months: { year: number; month: number; days: { date: string; pnl: number }[] }[] = [];
-    // Last 12 months including current month
-    for (let i = 11; i >= 0; i--) {
-      const ref = new Date(today.getFullYear(), today.getMonth() - i, 1);
-      const year = ref.getFullYear();
-      const month = ref.getMonth();
+    while (cur <= limit) {
+      const year = cur.getFullYear();
+      const month = cur.getMonth();
       const last = new Date(year, month + 1, 0).getDate();
       const days: { date: string; pnl: number }[] = [];
       for (let d = 1; d <= last; d++) {
-        const dt = new Date(year, month, d);
-        const key = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+        const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
         days.push({ date: key, pnl: dayMap.get(key) ?? 0 });
       }
       months.push({ year, month, days });
+      cur.setMonth(cur.getMonth() + 1);
     }
     return months;
-  }, [filtered]);
+  }, [filtered, from, to, bounds]);
 
   const heatmapMax = useMemo(() => {
     let m = 1;
@@ -343,8 +368,8 @@ function Dashboard() {
                 size="sm"
                 className="w-full h-9"
                 onClick={() => {
-                  setFrom("");
-                  setTo("");
+                  setFrom(bounds.min);
+                  setTo(bounds.max);
                   setInst("all");
                   setStype("all");
                   setOutcome("all");
@@ -542,7 +567,7 @@ function Dashboard() {
         <ChartCard
           icon={<Activity className="h-4 w-4" />}
           title="Daily Activity"
-          subtitle="Last 12 months · daily P&L intensity"
+          subtitle="Selected range · daily P&L intensity"
         >
           <div className="pt-2">
             <Heatmap months={heatmap} max={heatmapMax} />
