@@ -10,10 +10,10 @@ export function applyTheme(t: Theme) {
 }
 
 export function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
+  if (typeof window === "undefined") return "light";
   const saved = window.localStorage.getItem(THEME_KEY) as Theme | null;
   if (saved === "light" || saved === "dark") return saved;
-  return window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  return "light";
 }
 
 /** Write a new theme to localStorage and notify all listeners in this window. */

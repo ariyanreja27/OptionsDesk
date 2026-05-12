@@ -12,7 +12,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem('optionstats:theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.classList.add(t);}catch(e){document.documentElement.classList.add('dark');}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem('optionstats:theme');if(!t){t='light';}document.documentElement.classList.add(t);}catch(e){document.documentElement.classList.add('light');}})();`;
 
 import appCss from "../styles.css?url";
 
