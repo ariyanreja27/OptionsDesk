@@ -11,7 +11,7 @@ import {
   strategyTemplateLabel,
   strategyExitReason,
 } from "@/lib/types";
-import { fmtINR, pnlClass } from "@/lib/format";
+import { fmtDate, fmtINR, fmtNum, pnlClass } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -176,7 +176,7 @@ function TradeDetails() {
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5" />
-                  {strategy.tradeDate}
+                  {fmtDate(strategy.tradeDate)}
                 </span>
                 {(strategy.legs[0]?.entryTime || strategy.legs[0]?.exitTime) && (
                   <span className="inline-flex items-center gap-1.5">
@@ -188,7 +188,7 @@ function TradeDetails() {
                   <span className="inline-flex items-center gap-1.5">
                     Spot{" "}
                     <span className="text-foreground font-medium tabular-nums">
-                      {strategy.entrySpot}
+                      {fmtNum(strategy.entrySpot)}
                     </span>
                   </span>
                 )}
@@ -294,7 +294,7 @@ function TradeDetails() {
                     >
                       <td className="px-4 py-3 text-muted-foreground tabular-nums">{i + 1}</td>
                       <td className="px-4 py-3 font-medium">{l.underlying}</td>
-                      <td className="px-4 py-3 text-right tabular-nums">{l.strike}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{fmtNum(l.strike)}</td>
                       <td className="px-4 py-3">
                         <Badge
                           variant={l.optionType === "CE" ? "default" : "secondary"}
@@ -315,12 +315,12 @@ function TradeDetails() {
                           {l.action}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-right tabular-nums">{l.entryPremium}</td>
-                      <td className="px-4 py-3 text-right tabular-nums">{l.exitPremium}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{fmtNum(l.entryPremium)}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{fmtNum(l.exitPremium)}</td>
                       <td className="px-4 py-3 text-right text-muted-foreground tabular-nums">
                         {l.lotSize} × {l.quantity}
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground tabular-nums">{l.expiry}</td>
+                      <td className="px-4 py-3 text-muted-foreground tabular-nums">{fmtDate(l.expiry)}</td>
                       <td
                         className={cn(
                           "px-4 py-3 text-right font-semibold tabular-nums",

@@ -13,3 +13,8 @@ export function pnlClass(n: number): string {
   if (n < 0) return "text-loss";
   return "text-muted-foreground";
 }
+export function fmtDate(iso: string): string {
+  if (!iso) return "—";
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}

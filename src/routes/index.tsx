@@ -10,7 +10,7 @@ import {
   INSTRUMENTS,
   type Strategy,
 } from "@/lib/types";
-import { fmtINR, fmtNum, pnlClass } from "@/lib/format";
+import { fmtDate, fmtINR, fmtNum, pnlClass } from "@/lib/format";
 import {
   Select,
   SelectTrigger,
@@ -438,7 +438,7 @@ function Dashboard() {
                     />
                     <Tooltip
                       contentStyle={tooltipStyle}
-                      formatter={(value: number) => [value, "Equity"]}
+                      formatter={(value: number) => [fmtNum(value), "Equity"]}
                     />
                     <Area
                       type="monotone"
@@ -488,6 +488,7 @@ function Dashboard() {
                     <Tooltip
                       contentStyle={tooltipStyle}
                       cursor={{ fill: "var(--muted)", opacity: 0.4 }}
+                      formatter={(value: number) => [fmtNum(value), "P&L"]}
                     />
                     <Bar dataKey="pnl" radius={[3, 3, 0, 0]}>
                       {equityCurve.map((d, i) => (
@@ -578,8 +579,7 @@ function Dashboard() {
 }
 
 function fmtShortDate(iso: string): string {
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+  return fmtDate(iso);
 }
 
 function Label({ children }: { children: React.ReactNode }) {

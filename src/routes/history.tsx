@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import React, { useMemo, useState } from "react";
 import { useStore } from "@/lib/store";
 import { strategyPnL, strategyTemplateLabel, INSTRUMENTS, EXIT_REASONS } from "@/lib/types";
-import { fmtINR, pnlClass } from "@/lib/format";
+import { fmtDate, fmtINR, pnlClass } from "@/lib/format";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -596,7 +596,7 @@ function History() {
                                   params={{ id: s.id }}
                                   className="hover:text-primary transition-colors"
                                 >
-                                  {s.tradeDate}
+                                  {fmtDate(s.tradeDate)}
                                 </Link>
                               </td>
                               <td className="px-4 py-3.5">
