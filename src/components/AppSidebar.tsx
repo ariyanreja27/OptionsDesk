@@ -22,6 +22,8 @@ import {
   ChevronRight,
   BookTemplate,
   Settings,
+  TrendingDown,
+  Layers,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/lib/store";
@@ -103,15 +105,38 @@ export function AppSidebar() {
       </SidebarContent>
 
       {mounted && showPnL && !collapsed && (
-        <div className="px-3 py-2 mt-auto border-t border-border/60">
-          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-            Total P&L
-          </div>
-          <div className={cn("text-sm font-semibold tabular-nums", pnlClass(totalPnL))}>
-            {fmtINR(totalPnL)}
-          </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">
-            {strategies.length} {strategies.length === 1 ? "strategy" : "strategies"}
+        <div className="mx-3 mb-4 mt-auto p-3.5 rounded-xl border border-border/50 bg-muted/40 relative overflow-hidden group">
+          <div
+            className={cn(
+              "absolute -right-6 -bottom-6 h-16 w-16 rounded-full blur-2xl opacity-20 transition-colors",
+              totalPnL >= 0 ? "bg-profit" : "bg-loss",
+            )}
+          />
+          <div className="relative">
+            <div className="flex items-center gap-2 mb-2">
+              <div
+                className={cn(
+                  "h-6 w-6 rounded-lg flex items-center justify-center shrink-0 shadow-sm",
+                  totalPnL >= 0 ? "bg-profit/15 text-profit" : "bg-loss/15 text-loss",
+                )}
+              >
+                {totalPnL >= 0 ? (
+                  <TrendingUp className="h-3.5 w-3.5" />
+                ) : (
+                  <TrendingDown className="h-3.5 w-3.5" />
+                )}
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                Total P&L
+              </span>
+            </div>
+            <div className={cn("text-lg font-extrabold tabular-nums leading-tight", pnlClass(totalPnL))}>
+              {fmtINR(totalPnL)}
+            </div>
+            <div className="text-[10px] text-muted-foreground mt-2.5 flex items-center gap-1.5 font-medium">
+              <Layers className="h-3 w-3 opacity-70" />
+              {strategies.length} {strategies.length === 1 ? "strategy" : "strategies"}
+            </div>
           </div>
         </div>
       )}
